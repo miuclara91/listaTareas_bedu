@@ -1,0 +1,7 @@
+.todoTitle {
+    color: lightseagreen;
+}
+
+.done {
+    text-decoration: line-through;
+}
