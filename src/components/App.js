@@ -2,26 +2,14 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import TodoList from "./TodoList";
 import Form from "./Form";
-import ShowHide from "./ShowHide";
 
 /* Component Functional */
 function App() {
   const [todos, setTodos] = useState([]);
-  const [allFilter, setAllFilter] = useState([]);
-  const [allTodos, setAllTodos] = useState(true);
+  const [allTodos, setAllTodos] = useState(false);
 
   useEffect(() => {
     setTodos([
-      { title: "Sesión 1 (JSX)", done: true },
-      { title: "Sesión 2 (Estado y propiedades)", done: true },
-      { title: "Sesión 3 (Ciclo de vida)", done: true },
-      { title: "Sesión 4 (Hooks)", done: false },
-      { title: "Sesión 5 (Hooks)", done: false },
-      { title: "Sesión 6 (Rutas)", done: false },
-      { title: "Sesión 7 (PWA)", done: false },
-      { title: "Sesión 8 (Material UI)", done: false },
-    ]);
-    setAllFilter([
       { title: "Sesión 1 (JSX)", done: true },
       { title: "Sesión 2 (Estado y propiedades)", done: true },
       { title: "Sesión 3 (Ciclo de vida)", done: true },
@@ -74,37 +62,35 @@ function App() {
   };
 
   /* Función para filtrar sólo las tareas finalizadas */
-  const tasksDone = () => {
+  const tasksDone = (allTodos) => {
     const allTasks = [...todos];
-    const allDone = allTasks.filter( allTasks => allTasks.done);
-    return allDone;
+    const allDone = allTasks.filter((allTasks) => allTasks.done);
+    return allTodos ? allDone : allTasks;
   };
 
   /* Método para Mostrar / Esconder tareas */
   const ShowAndHide = () => {
-    const allTasks = [...todos];
-    
-    if(allTodos){
-      console.log(allTodos);
-      setAllFilter(tasksDone());
-      setAllTodos(false);      
+    if (allTodos) {
+      tasksDone(allTodos);
+      setAllTodos(false);
     } else {
-      console.log(allTodos);
-      setAllFilter(todos.slice(0));
-      setAllTodos(true);      
+      tasksDone(allTodos);
+      setAllTodos(true);
     }
-  }
+  };
 
   return (
     <div className="wrapper">
       <div className="card frame">
-        <Header counter={allFilter.length} doneFn={ShowAndHide} />
-        
+        <Header counter={todos.length} doneFn={ShowAndHide} />
+
         <TodoList
-          tasks={allFilter}
+          tasks={todos}
           toggleFn={handleClickToggleDone}
           deleteFn={handleClickDelete}
+          isDoneBool={allTodos}
         />
+
         <Form addTaskFn={addTask} />
       </div>
     </div>

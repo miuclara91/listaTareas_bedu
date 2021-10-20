@@ -6,7 +6,7 @@ import "../css/todo.css";
 /* Componente Funcional : Stateless */
 function Todo(props) {
   return (
-    <div className={`list-item ${props.done ? "done" : ""}`}>
+    <div className={`list-item ${props.done && props.isDoneBool ? "complete" : ""} ${props.done ? "done" : ""}`} >
       {props.title}
       <div className="is-pulled-right">
         <Checkmark toggleFn={props.toggleFn} done={props.done} />

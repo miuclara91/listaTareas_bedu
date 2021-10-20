@@ -4,6 +4,7 @@ import Todo from "./Todo";
 import "../css/todolist.css";
 
 function TodoList(props) {
+  
   return (
     <div className="list-wrapper">
       {
@@ -11,7 +12,10 @@ function TodoList(props) {
           <Todo
             key={i}
             done={e.done}
-            title={e.title} 
+            title={e.title}
+            isDoneBool={props.isDoneBool}
+            deleteFn={props.deleteFn}
+            toggleFn={props.toggleFn}
           />
         )
       }
