@@ -7,10 +7,21 @@ import ShowHide from "./ShowHide";
 /* Component Functional */
 function App() {
   const [todos, setTodos] = useState([]);
+  const [allFilter, setAllFilter] = useState([]);
   const [allTodos, setAllTodos] = useState(true);
 
   useEffect(() => {
     setTodos([
+      { title: "Sesión 1 (JSX)", done: true },
+      { title: "Sesión 2 (Estado y propiedades)", done: true },
+      { title: "Sesión 3 (Ciclo de vida)", done: true },
+      { title: "Sesión 4 (Hooks)", done: false },
+      { title: "Sesión 5 (Hooks)", done: false },
+      { title: "Sesión 6 (Rutas)", done: false },
+      { title: "Sesión 7 (PWA)", done: false },
+      { title: "Sesión 8 (Material UI)", done: false },
+    ]);
+    setAllFilter([
       { title: "Sesión 1 (JSX)", done: true },
       { title: "Sesión 2 (Estado y propiedades)", done: true },
       { title: "Sesión 3 (Ciclo de vida)", done: true },
@@ -75,11 +86,11 @@ function App() {
     
     if(allTodos){
       console.log(allTodos);
-      setTodos(tasksDone());
+      setAllFilter(tasksDone());
       setAllTodos(false);      
     } else {
       console.log(allTodos);
-      setTodos(allTasks);
+      setAllFilter(todos.slice(0));
       setAllTodos(true);      
     }
   }
@@ -87,10 +98,10 @@ function App() {
   return (
     <div className="wrapper">
       <div className="card frame">
-        <Header counter={todos.length} doneFn={ShowAndHide} />
+        <Header counter={allFilter.length} doneFn={ShowAndHide} />
         
         <TodoList
-          tasks={todos}
+          tasks={allFilter}
           toggleFn={handleClickToggleDone}
           deleteFn={handleClickDelete}
         />
